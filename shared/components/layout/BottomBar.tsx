@@ -16,6 +16,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import PatchNotesModal from '@/features/PatchNotes/components/PatchNotesModal';
 
 import { APP_VERSION_DISPLAY } from '@/shared/lib/constants';
+import ThemesModal from '@/features/Preferences/components/ThemesModal';
 
 type SocialLink = {
   icon: IconDefinition | LucideIcon;
@@ -59,6 +60,7 @@ const MobileBottomBar = () => {
   );
   const effectiveTheme = isCrazyMode && activeThemeId ? activeThemeId : theme;
   const [isPatchNotesOpen, setIsPatchNotesOpen] = useState(false);
+  const [isThemeOpen, setIsThemeOpen] = useState(false);
 
   const handleClick = (url: string) => {
     playClick();
@@ -70,6 +72,11 @@ const MobileBottomBar = () => {
     setIsPatchNotesOpen(true);
   };
 
+  const handleThemeClick = () => {
+    playClick();
+    setIsThemeOpen(true);
+  };
+
   const baseIconClasses = clsx(
     'hover:cursor-pointer ',
     'active:scale-100 active:duration-225',
@@ -77,18 +84,26 @@ const MobileBottomBar = () => {
   );
 
   const infoItems = [
-    { icon: Palette, text: effectiveTheme.replace('-', ' ') },
+    {
+      icon: Palette,
+      text: effectiveTheme.replace('-', ' '),
+      onClick: handleThemeClick
+    },
     { icon: Type, text: font.toLowerCase() },
-    { icon: GitBranch, text: `v${APP_VERSION_DISPLAY}` }
+    {
+      icon: GitBranch,
+      text: `v${APP_VERSION_DISPLAY}`,
+      onClick: handleVersionClick
+    }
   ];
 
   return (
     <div
       id='main-bottom-bar'
       className={clsx(
-        'fixed bottom-0 left-0 right-0 z-50 max-lg:hidden',
-        'bg-[var(--background-color)] border-t-1 border-[var(--border-color)]',
-        'px-4 py-1 flex items-center justify-between',
+        'fixed right-0 bottom-0 left-0 z-50 max-lg:hidden',
+        'border-t-1 border-[var(--border-color)] bg-[var(--background-color)]',
+        'flex items-center justify-between px-4 py-1',
         expandDecorations && 'hidden'
       )}
     >
@@ -115,7 +130,7 @@ const MobileBottomBar = () => {
                   className={clsx(
                     baseIconClasses,
                     pulseClasses,
-                    isPatreon && 'text-blue-500 '
+                    isPatreon && 'text-blue-500'
                   )}
                   onClick={() => handleClick(link.url)}
                 />
@@ -126,7 +141,7 @@ const MobileBottomBar = () => {
                     baseIconClasses,
                     pulseClasses,
                     isDonate &&
-                      'motion-safe:animate-pulse text-red-500 fill-current '
+                      'fill-current text-red-500 motion-safe:animate-pulse'
                   )}
                   onClick={() => handleClick(link.url)}
                 />
@@ -142,16 +157,22 @@ const MobileBottomBar = () => {
       </div>
 
       <div className='flex items-center gap-2 text-xs text-[var(--secondary-color)]'>
-        <span className='hidden lg:inline-block text-xs text-[var(--secondary-color)]'>
+        <span className='hidden text-xs text-[var(--secondary-color)] lg:inline-block'>
           made with ❤️ by the community
         </span>
-        <span className='hidden lg:inline-block text-sm text-[var(--secondary-color)] select-none'>
+        <span className='hidden text-sm text-[var(--secondary-color)] select-none lg:inline-block'>
           ~
         </span>
         {infoItems.map((item, idx) => {
-          const isVersionItem = idx === infoItems.length - 1;
           const content = (
-            <span className='flex gap-1'>
+            <span
+              className={clsx(
+                'flex gap-1',
+                item.onClick &&
+                  'hover:cursor-pointer hover:text-[var(--main-color)]'
+              )}
+              onClick={item.onClick}
+            >
               <item.icon size={16} />
               {item.text}
             </span>
@@ -159,17 +180,7 @@ const MobileBottomBar = () => {
 
           return (
             <React.Fragment key={idx}>
-              {isVersionItem ? (
-                <span
-                  className='flex gap-1 hover:text-[var(--main-color)] hover:cursor-pointer '
-                  onClick={handleVersionClick}
-                >
-                  <item.icon size={16} />
-                  {item.text}
-                </span>
-              ) : (
-                content
-              )}
+              {content}
               {idx < infoItems.length - 1 && (
                 <span className='text-sm text-[var(--secondary-color)] select-none'>
                   ~
@@ -183,6 +194,7 @@ const MobileBottomBar = () => {
         open={isPatchNotesOpen}
         onOpenChange={setIsPatchNotesOpen}
       />
+      <ThemesModal open={isThemeOpen} onOpenChange={setIsThemeOpen} />
     </div>
   );
 };
