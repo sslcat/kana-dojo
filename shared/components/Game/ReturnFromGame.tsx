@@ -96,12 +96,12 @@ const Return = ({ isHidden, href, gameMode }: ReturnProps) => {
   return (
     <div
       className={clsx(
-        'mt-4 flex w-full flex-col md:mt-8 md:w-2/3 lg:w-1/2',
+        'mt-2 flex w-full flex-col md:mt-4 md:w-2/3 lg:w-1/2',
         isHidden && 'hidden'
       )}
     >
       {/* Header with exit and progress */}
-      <div className='flex w-full flex-row items-center justify-between gap-4 md:gap-6'>
+      <div className='flex w-full flex-row items-center justify-between gap-2 md:gap-4'>
         <Link href={href} ref={buttonRef} onClick={handleExit}>
           <X
             size={32}
