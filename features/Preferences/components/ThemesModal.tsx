@@ -110,29 +110,27 @@ const ThemeCard = memo(function ThemeCard({
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onClick(theme.id)}
     >
-      {!isPremiumTheme && (
-        <div className='mb-2'>
-          {isChaosTheme ? (
-            <span className='relative flex items-center justify-center text-sm text-white capitalize'>
-              <span
-                className='absolute left-1/2 -translate-x-1/2'
-                style={{ color: isSelected ? '#000' : 'transparent' }}
-              >
-                {'\u2B24'}
-              </span>
-              <span className='opacity-0'>?</span>
-            </span>
-          ) : (
+      <div className={`mb-2 ${isPremiumTheme ? 'invisible' : ''}`}>
+        {isChaosTheme ? (
+          <span className='relative flex items-center justify-center text-sm text-white capitalize'>
             <span
-              className='text-sm capitalize'
-              style={{ color: theme.mainColor }}
+              className='absolute left-1/2 -translate-x-1/2'
+              style={{ color: isSelected ? '#000' : 'transparent' }}
             >
-              {isSelected && '\u2B24 '}
-              {themeName}
+              {'\u2B24'}
             </span>
-          )}
-        </div>
-      )}
+            <span className='opacity-0'>?</span>
+          </span>
+        ) : (
+          <span
+            className='text-sm capitalize'
+            style={{ color: theme.mainColor }}
+          >
+            {isSelected && '\u2B24 '}
+            {themeName}
+          </span>
+        )}
+      </div>
       <div
         className='flex min-h-4 gap-1.5'
         style={{ visibility: isChaosTheme ? 'hidden' : 'visible' }}

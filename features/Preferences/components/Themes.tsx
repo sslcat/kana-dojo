@@ -278,50 +278,54 @@ const Themes = () => {
                   }}
                   className='hidden'
                 />
-                {!isPremiumThemeId(currentTheme.id) && (
-                  <>
-                    {currentTheme.id === '?' ? (
-                      <span className='relative flex w-full items-center justify-center text-center text-lg'>
-                        <span
-                          className={clsx(
-                            'absolute left-1/2 -translate-x-1/2',
-                            currentTheme.id === selectedTheme
-                              ? 'text-black'
-                              : 'text-transparent',
-                          )}
-                        >
-                          {'\u2B24'}
-                        </span>
-                        <span className='opacity-0'>?</span>
-                      </span>
-                    ) : (
-                      <span className='flex items-center gap-1.5 text-center text-lg'>
-                        <span className='text-(--secondary-color)'>
-                          {currentTheme.id === selectedTheme ? '\u2B24 ' : ''}
-                        </span>
-                        {currentTheme.id === 'long'
-                          ? 'long loooooooong theme'
-                          : currentTheme.id
-                              .split('-')
-                              .map((themeNamePart, i) => (
-                                <span
-                                  key={`${currentTheme.id}-${i}`}
-                                  style={{
-                                    color:
-                                      process.env.NODE_ENV !== 'production'
-                                        ? i === 0
-                                          ? currentTheme.mainColor
-                                          : currentTheme.secondaryColor
-                                        : undefined,
-                                  }}
-                                >
-                                  {i > 0 && ' '}
-                                  {themeNamePart}
-                                </span>
-                              ))}
-                      </span>
+                {currentTheme.id === '?' ? (
+                  <span
+                    className={clsx(
+                      'relative flex w-full items-center justify-center text-center text-lg',
+                      isPremiumThemeId(currentTheme.id) && 'invisible',
                     )}
-                  </>
+                  >
+                    <span
+                      className={clsx(
+                        'absolute left-1/2 -translate-x-1/2',
+                        currentTheme.id === selectedTheme
+                          ? 'text-black'
+                          : 'text-transparent',
+                      )}
+                    >
+                      {'\u2B24'}
+                    </span>
+                    <span className='opacity-0'>?</span>
+                  </span>
+                ) : (
+                  <span
+                    className={clsx(
+                      'flex items-center gap-1.5 text-center text-lg',
+                      isPremiumThemeId(currentTheme.id) && 'invisible',
+                    )}
+                  >
+                    <span className='text-(--secondary-color)'>
+                      {currentTheme.id === selectedTheme ? '\u2B24 ' : ''}
+                    </span>
+                    {currentTheme.id === 'long'
+                      ? 'long loooooooong theme'
+                      : currentTheme.id.split('-').map((themeNamePart, i) => (
+                          <span
+                            key={`${currentTheme.id}-${i}`}
+                            style={{
+                              color:
+                                process.env.NODE_ENV !== 'production'
+                                  ? i === 0
+                                    ? currentTheme.mainColor
+                                    : currentTheme.secondaryColor
+                                  : undefined,
+                            }}
+                          >
+                            {i > 0 && ' '}
+                            {themeNamePart}
+                          </span>
+                        ))}
+                  </span>
                 )}
               </label>
             ))}
