@@ -57,12 +57,12 @@
   {
     "id": 12,
     "text": "\"〜つもり\" expresses intent, like \"I plan to\" do something.",
-    "completed": false
+    "completed": true
   },
   {
     "id": 13,
     "text": "\"〜なければならない\" means \"must\" or \"have to\" do something.",
-    "issued": false
+    "issued": true
   },
   {
     "id": 14,
