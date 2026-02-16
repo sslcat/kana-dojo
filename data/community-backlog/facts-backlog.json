@@ -249,12 +249,12 @@
     "id": 42,
     "fact": "Japan's elderly population is so large that adult diapers outsell baby diapers - reflecting one of the world's fastest-aging societies.",
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 43,
     "fact": "There's a Japanese word 'betsu-bara' (åˆ¥è…¹) meaning 'separate stomach' - the idea that there's always room for dessert even when full.",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
